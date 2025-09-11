@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bloglar</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bloglar</h1>
+        <ul id="blogList"></ul>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            loadBlogs();
+        });
+
+        // Bloglarni yuklash
+        function loadBlogs() {
+            $.ajax({
+                url: "/blogs/api/",
+                type: "GET",
+                success: function(data) {
+                    $("#blogList").empty();
+
+                    data.results.forEach(function(blog) {
+                        $("#blogList").append(
+                            `<li>
+                                <b>${blog.title}</b><br>
+                                <p class="blog-desc">${blog.description}</p>
+                                <a href="/blogs/${blog.id}/detail/" class="read-more">To‘liq o‘qish</a>
+                            </li>`
+                        );
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

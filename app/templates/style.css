@@ -1,0 +1,101 @@
+/* Umumiy */
+body {
+    font-family: Arial, sans-serif;
+    background: #000000;
+    margin: 0;
+    padding: 0;
+    color: #2f3640;
+}
+
+.container {
+    width: 70%;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Blog sarlavhasi */
+h1 {
+    text-align: center;
+    color: #273c75;
+    margin-bottom: 20px;
+}
+
+/* Bloglar ro‘yxati */
+#blogList {
+    list-style: none;
+    padding: 0;
+}
+
+#blogList li {
+    background: #f0f3f7;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+#blogList li:hover {
+    background: #dcdde1;
+    transform: scale(1.01);
+}
+
+#blogList b {
+    font-size: 18px;
+    color: #192a56;
+}
+
+/* Kommentlar */
+#commentsSection {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f7f9fb;
+    border-radius: 10px;
+    border: 1px solid #dcdde1;
+}
+
+#commentList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#commentList li {
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #dcdde1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Form */
+#commentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#commentForm input,
+#commentForm textarea {
+    padding: 10px;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+}
+
+#commentForm button {
+    background: #273c75;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#commentForm button:hover {
+    background: #40739e;
+}

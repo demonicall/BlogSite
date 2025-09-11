@@ -1,0 +1,76 @@
+/* Dark theme umumiy */
+body {
+    background-color: #121212;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #e0e0e0;
+}
+
+/* Container */
+.container {
+    width: 70%;
+    margin: 30px auto;
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+
+/* Sarlavha */
+h1 {
+    text-align: left;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Bloglar */
+#blogList {
+    list-style: none;
+    padding: 0;
+}
+
+#blogList li {
+    background: #2a2a2a;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    transition: 0.3s;
+    border: 1px solid #333;
+}
+
+#blogList li:hover {
+    background: #333333;
+    transform: scale(1.01);
+}
+
+#blogList b {
+    font-size: 20px;
+    color: white;
+}
+
+/* Matn qisqartirish */
+.blog-desc {
+    color: #cccccc;
+    margin-top: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;  /* faqat 3 qator */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Link */
+.read-more {
+    display: inline-block;
+    margin-top: 8px;
+    color: blueviolet;
+    text-decoration: none;
+    font-size: 14px;
+}
+.read-more:hover {
+    text-decoration: underline;
+}
+.margin {
+    margin-bottom: 100px;
+}

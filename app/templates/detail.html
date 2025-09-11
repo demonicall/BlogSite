@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ blog.title }}</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>{{ blog.title }}</h1>
+    <p>{{ blog.description }}</p><br>
+    <a href="/blogs/">Orqaga</a>
+
+    <hr><br>
+
+    <ul id="commentList">
+        {% if comments %}
+            {% for c in comments %}
+                <li><b>{{ c.name }}</b>: {{ c.comment }}</li>
+            {% endfor %}
+        {% else %}
+            <li>Kommentlar yo‘q</li>
+        {% endif %}
+    </ul>
+    <br>
+    <h3>Kommentariya qoldiring</h3>
+    <form id="commentForm">
+        {% csrf_token %}
+        <input type="hidden" id="blogId" value="{{ blog.id }}">
+        <input type="text" id="name" placeholder="Ism" required class="margin"><br>
+        <input type="email" id="email" placeholder="Email" required class="margin"><br>
+        <textarea id="comment" placeholder="Komment yozing..." required class="margin"></textarea><br>
+        <button type="submit">Yuborish</button>
+    </form>
+</div>
+
+<script>
+    $("#commentForm").submit(function(e) {
+        e.preventDefault();
+        let blogId = $("#blogId").val();
+
+        $.ajax({
+            url: `/blogs/api/${blogId}/comments/`,
+            type: "POST",
+            headers: {"X-CSRFToken": csrftoken},  // csrf tokenni qo‘shgan edik
+            data: {
+                name: $("#name").val(),
+                email: $("#email").val(),
+                comment: $("#comment").val()
+            },
+            success: function(response) {
+                // yangi komentni darrov ro‘yxatga qo‘shamiz
+                $("#commentList").prepend(
+                    `<li><b>${response.name}</b>: ${response.comment}</li>`
+                );
+                // formani tozalaymiz
+                $("#commentForm")[0].reset();
+            },
+            error: function(xhr, status, error) {
+                alert("Xatolik: " + xhr.responseText);
+            }
+        });
+    });
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+</script>
+</body>
+</html>
