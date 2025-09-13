@@ -6,22 +6,50 @@
     <title>Bloglar</title>
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #pagination {
+            margin-top: 15px;
+            text-align: center;
+        }
+        #pagination button {
+            margin: 3px;
+            padding: 5px 12px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #pagination button:hover {
+            background: #0056b3;
+        }
+        #pagination button.active {
+            background: #28a745;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Bloglar</h1>
         <ul id="blogList"></ul>
+        <div id="pagination"></div>
     </div>
 
     <script>
         $(document).ready(function() {
-            loadBlogs();
+            loadBlogs("/blogs/api/");
         });
 
+        function getPageNumber(url) {
+            if (!url) return null;
+            const params = new URL(url, window.location.origin).searchParams;
+            return parseInt(params.get("page"));
+        }
+
         // Bloglarni yuklash
-        function loadBlogs() {
+        function loadBlogs(url) {
             $.ajax({
-                url: "/blogs/api/",
+                url: url,
                 type: "GET",
                 success: function(data) {
                     $("#blogList").empty();
@@ -35,6 +63,38 @@
                             </li>`
                         );
                     });
+
+                    // Hozirgi sahifa va jami sahifalar
+                    let currentPage = getPageNumber(url) || 1;
+                    let totalPages = Math.ceil(data.count / 5); // PAGE_SIZE = 5
+
+                    // Pagination tugmalar
+                    $("#pagination").empty();
+
+                    if (data.previous) {
+                        $("#pagination").append(
+                            `<button onclick="loadBlogs('${data.previous}')">⬅ Oldingi</button>`
+                        );
+                    }
+
+                    // Sahifa raqamlari
+                    for (let i = 1; i <= totalPages; i++) {
+                        if (i === currentPage) {
+                            $("#pagination").append(
+                                `<button class="active">${i}</button>`
+                            );
+                        } else {
+                            $("#pagination").append(
+                                `<button onclick="loadBlogs('/blogs/api/?page=${i}')">${i}</button>`
+                            );
+                        }
+                    }
+
+                    if (data.next) {
+                        $("#pagination").append(
+                            `<button onclick="loadBlogs('${data.next}')">Keyingi ➡</button>`
+                        );
+                    }
                 }
             });
         }

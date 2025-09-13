@@ -10,24 +10,24 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 import dj_database_url
 import environ
-
-env = environ.Env(
-    DEBUG=(bool, False)
-)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,7 +35,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "blogsitedemonic.onrender.com",
     "*"
 ]
 
@@ -104,13 +103,28 @@ DATABASES = {
     ),
     'extra': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env.str('PG_DATABASE', 'postgres'),
-        'USER': env.str('PG_USER', 'postgres'),
-        'PASSWORD': env.str('PG_PASSWORD', '1234'),
-        'HOST': env.str('DB_HOST', 'localhost'),
-        'PORT': env.int('DB_PORT', 5432),
+        'NAME': env.str('PG_DATABASE'),
+        'USER': env.str('PG_USER'),
+        'PASSWORD': env.str('PG_PASSWORD'),
+        'HOST': env.str('DB_HOST'),
+        'PORT': env.int('DB_PORT'),
     }
 }
+
+# DATABASES = {
+#     "extra": dj_database_url.config(
+#         default=os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3")
+#     ),
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': env.str('PG_DATABASE'),
+#         'USER': env.str('PG_USER'),
+#         'PASSWORD': env.str('PG_PASSWORD'),
+#         'HOST': env.str('DB_HOST'),
+#         'PORT': env.int('DB_PORT'),
+#     }
+# }
+
 
 
 # Password validation

@@ -29,9 +29,9 @@
     <form id="commentForm">
         {% csrf_token %}
         <input type="hidden" id="blogId" value="{{ blog.id }}">
-        <input type="text" id="name" placeholder="Ism" required class="margin"><br>
-        <input type="email" id="email" placeholder="Email" required class="margin"><br>
-        <textarea id="comment" placeholder="Komment yozing..." required class="margin"></textarea><br>
+        <input type="text" id="name" placeholder="Ism" required class="margin">
+        <input type="email" id="email" placeholder="Email" required class="margin">
+        <textarea id="comment" placeholder="Komment yozing..." required class="margin"></textarea>
         <button type="submit">Yuborish</button>
     </form>
 </div>
