@@ -97,25 +97,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3")
-    ),
-    'extra': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env.str('PG_DATABASE'),
-        'USER': env.str('PG_USER'),
-        'PASSWORD': env.str('PG_PASSWORD'),
-        'HOST': env.str('DB_HOST'),
-        'PORT': env.int('DB_PORT'),
-    }
-}
-
 # DATABASES = {
-#     "extra": dj_database_url.config(
+#     "default": dj_database_url.config(
 #         default=os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3")
 #     ),
-#     'default': {
+#     'extra': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': env.str('PG_DATABASE'),
 #         'USER': env.str('PG_USER'),
@@ -124,6 +110,20 @@ DATABASES = {
 #         'PORT': env.int('DB_PORT'),
 #     }
 # }
+
+DATABASES = {
+    "extra": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3")
+    ),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env.str('PG_DATABASE'),
+        'USER': env.str('PG_USER'),
+        'PASSWORD': env.str('PG_PASSWORD'),
+        'HOST': env.str('DB_HOST'),
+        'PORT': env.int('DB_PORT'),
+    }
+}
 
 
 

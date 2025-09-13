@@ -18,7 +18,7 @@
     <ul id="commentList">
         {% if comments %}
             {% for c in comments %}
-                <li><b>{{ c.name }}</b>: {{ c.comment }}</li>
+                <p><b>{{ c.name }}</b>:<br> {{ c.comment }}</p>
             {% endfor %}
         {% else %}
             <li>Kommentlar yo‘q</li>
@@ -29,9 +29,9 @@
     <form id="commentForm">
         {% csrf_token %}
         <input type="hidden" id="blogId" value="{{ blog.id }}">
-        <input type="text" id="name" placeholder="Ism" required class="margin">
-        <input type="email" id="email" placeholder="Email" required class="margin">
-        <textarea id="comment" placeholder="Komment yozing..." required class="margin"></textarea>
+        <input type="text" id="name" placeholder="Ism" required class="margin"><br>
+        <input type="email" id="email" placeholder="Email" required class="margin"><br>
+        <textarea id="comment" placeholder="Komment yozing..." required class="margin"></textarea><br>
         <button type="submit">Yuborish</button>
     </form>
 </div>
